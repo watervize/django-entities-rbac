@@ -1,7 +1,9 @@
 from __future__ import unicode_literals
 
 from rolepermissions.exceptions import (
-    RolePermissionScopeException, CheckerNotRegistered)
+    RolePermissionScopeException,
+    CheckerNotRegistered,
+)
 from rolepermissions.roles import get_user_roles, get_or_create_permission
 
 
@@ -21,7 +23,9 @@ class PermissionsManager(object):
         if checker_name in cls._checkers:
             return cls._checkers[checker_name]
 
-        raise CheckerNotRegistered('Checker with name %s was not registered' % checker_name)
+        raise CheckerNotRegistered(
+            "Checker with name %s was not registered" % checker_name
+        )
 
 
 def register_object_checker(name=None):
@@ -29,6 +33,7 @@ def register_object_checker(name=None):
         checker_name = name if name else func.__name__
         PermissionsManager.register_checker(checker_name, func)
         return func
+
     return fuction_decorator
 
 
@@ -47,7 +52,9 @@ def available_perm_status(user):
     roles = get_user_roles(user)
     permission_hash = {}
 
-    user_permission_names = set(user.user_permissions.values_list("codename", flat=True))
+    user_permission_names = set(
+        user.user_permissions.values_list("codename", flat=True)
+    )
 
     for role in roles:
         for permission_name in role.permission_names_list():
@@ -66,8 +73,11 @@ def available_perm_names(user):
     """
     roles = get_user_roles(user)
     perm_names = set(p for role in roles for p in role.permission_names_list())
-    return [p.codename for p in user.user_permissions.all() if p.codename in perm_names] \
-                                                                        if roles else []  # e.g., user == None
+    return (
+        [p.codename for p in user.user_permissions.all() if p.codename in perm_names]
+        if roles
+        else []
+    )  # e.g., user == None
 
 
 def grant_permission(user, permission_name):
@@ -87,8 +97,8 @@ def grant_permission(user, permission_name):
             return
 
     raise RolePermissionScopeException(
-        "This permission isn't in the scope of "
-        "any of this user's roles.")
+        "This permission isn't in the scope of " "any of this user's roles."
+    )
 
 
 def revoke_permission(user, permission_name):
@@ -108,5 +118,5 @@ def revoke_permission(user, permission_name):
             return
 
     raise RolePermissionScopeException(
-        "This permission isn't in the scope of "
-        "any of this user's roles.")
+        "This permission isn't in the scope of " "any of this user's roles."
+    )

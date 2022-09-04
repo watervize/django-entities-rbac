@@ -20,13 +20,13 @@ def get_app_name(app_name):
 
 
 def load_roles_and_permissions():
-    if hasattr(settings, 'ROLEPERMISSIONS_MODULE'):
+    if hasattr(settings, "ROLEPERMISSIONS_MODULE"):
         import_module(settings.ROLEPERMISSIONS_MODULE)
 
     for app_name in settings.INSTALLED_APPS:
-        if app_name != 'rolepermissions':
+        if app_name != "rolepermissions":
             app_name = get_app_name(app_name)
             try:
-                import_module('.permissions', app_name)
+                import_module(".permissions", app_name)
             except ImportError:
                 pass

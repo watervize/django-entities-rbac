@@ -3,10 +3,8 @@ from __future__ import unicode_literals
 import inspect
 
 from django.conf import settings
-from rolepermissions.roles import (
-    RolesManager, get_user_roles)
-from rolepermissions.permissions import (
-    PermissionsManager, available_perm_names)
+from rolepermissions.roles import RolesManager, get_user_roles
+from rolepermissions.permissions import PermissionsManager, available_perm_names
 
 
 def has_role(user, roles):
@@ -36,6 +34,7 @@ def has_permission(user, permission_name):
 
     return permission_name in available_perm_names(user)
 
+
 def has_object_permission(checker_name, user, obj):
     """Check if a user has permission to perform an action on an object."""
     if _check_superpowers(user):
@@ -56,7 +55,7 @@ def _check_superpowers(user):
 
     Default is true to maintain backward compatibility.
     """
-    key = 'ROLEPERMISSIONS_SUPERUSER_SUPERPOWERS'
+    key = "ROLEPERMISSIONS_SUPERUSER_SUPERPOWERS"
 
     superpowers = getattr(settings, key, True)
     if not superpowers:
