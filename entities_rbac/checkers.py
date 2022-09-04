@@ -1,10 +1,8 @@
-from __future__ import unicode_literals
-
 import inspect
 
 from django.conf import settings
-from rolepermissions.roles import RolesManager, get_user_roles
-from rolepermissions.permissions import PermissionsManager, available_perm_names
+from entities_rbac.roles import RolesManager, get_user_roles
+from entities_rbac.permissions import PermissionsManager, available_perm_names
 
 
 def has_role(user, roles):
@@ -55,7 +53,7 @@ def _check_superpowers(user):
 
     Default is true to maintain backward compatibility.
     """
-    key = "ROLEPERMISSIONS_SUPERUSER_SUPERPOWERS"
+    key = "ENTITIES_RBAC_SUPERUSER_SUPERPOWERS"
 
     superpowers = getattr(settings, key, True)
     if not superpowers:

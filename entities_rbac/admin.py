@@ -2,15 +2,15 @@ from django.conf import settings
 from django.contrib import admin, auth
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
-from rolepermissions import roles
+from entities_rbac import roles
 
-ROLEPERMISSIONS_REGISTER_ADMIN = getattr(
-    settings, "ROLEPERMISSIONS_REGISTER_ADMIN", False
+ENTITIES_RBAC_REGISTER_ADMIN = getattr(
+    settings, "ENTITIES_RBAC_REGISTER_ADMIN", False
 )
 UserModel = auth.get_user_model()
 
 
-class RolePermissionsUserAdminMixin(object):
+class EntitiesRBACUserAdminMixin(object):
     """Must be mixed in with an UserAdmin class"""
 
     def save_related(self, request, form, formsets, change):
@@ -41,10 +41,10 @@ class RolePermissionsUserAdminMixin(object):
                 pass
 
 
-class RolePermissionsUserAdmin(RolePermissionsUserAdminMixin, UserAdmin):
+class EntitiesRBACUserAdmin(EntitiesRBACUserAdminMixin, UserAdmin):
     pass
 
 
-if ROLEPERMISSIONS_REGISTER_ADMIN:
+if ENTITIES_RBAC_REGISTER_ADMIN:
     admin.site.unregister(UserModel)
-    admin.site.register(UserModel, RolePermissionsUserAdmin)
+    admin.site.register(UserModel, EntitiesRBACUserAdmin)

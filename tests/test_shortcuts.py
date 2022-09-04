@@ -1,21 +1,20 @@
-
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 
 from model_mommy import mommy
 
-from rolepermissions.roles import RolesManager, AbstractUserRole
-from rolepermissions.roles import (
+from entities_rbac.roles import RolesManager, AbstractUserRole
+from entities_rbac.roles import (
     get_user_roles, retrieve_role,
     assign_role, remove_role, clear_roles
 )
-from rolepermissions.permissions import (
+from entities_rbac.permissions import (
     grant_permission, revoke_permission,
     available_perm_status, available_perm_names)
-from rolepermissions.checkers import has_permission
-from rolepermissions.exceptions import (
-    RoleDoesNotExist, RolePermissionScopeException)
+from entities_rbac.checkers import has_permission
+from entities_rbac.exceptions import (
+    RoleDoesNotExist, EntitiesRBACScopeException)
 
 
 class ShoRole1(AbstractUserRole):
@@ -568,14 +567,14 @@ class GrantPermissionTests(TestCase):
     def test_not_allowed_permission(self):
         user = self.user
 
-        with self.assertRaises(RolePermissionScopeException):
+        with self.assertRaises(EntitiesRBACScopeException):
             grant_permission(user, 'permission1')
 
     def test_not_allowed_permission_multiple_roles(self):
         user = self.user
         ShoRole3.assign_role_to_user(self.user)
 
-        with self.assertRaises(RolePermissionScopeException):
+        with self.assertRaises(EntitiesRBACScopeException):
             grant_permission(user, 'permission1')
 
 
@@ -602,14 +601,14 @@ class RevokePermissionTests(TestCase):
     def test_not_allowed_permission(self):
         user = self.user
 
-        with self.assertRaises(RolePermissionScopeException):
+        with self.assertRaises(EntitiesRBACScopeException):
             revoke_permission(user, 'permission1')
 
     def test_not_allowed_permission_multiple_roles(self):
         user = self.user
         ShoRole3.assign_role_to_user(self.user)
 
-        with self.assertRaises(RolePermissionScopeException):
+        with self.assertRaises(EntitiesRBACScopeException):
             revoke_permission(user, 'permission1')
 
 

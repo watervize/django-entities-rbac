@@ -1,6 +1,5 @@
-
 from django.test import TestCase
-from rolepermissions.utils import camelToSnake, snake_to_title, camel_or_snake_to_title
+from entities_rbac.utils import camelToSnake, snake_to_title, camel_or_snake_to_title
 
 
 class UtilTests(TestCase):

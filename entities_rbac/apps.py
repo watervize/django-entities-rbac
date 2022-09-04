@@ -1,11 +1,11 @@
 from django.apps import AppConfig
 
-from rolepermissions.loader import load_roles_and_permissions
+from entities_rbac.loader import load_roles_and_permissions
 
 
-class RolePermissions(AppConfig):
-    name = "rolepermissions"
-    verbose_name = "Django Role Permissions"
+class EntitiesRBAC(AppConfig):
+    name = "entities_rbac"
+    verbose_name = "Django Entities RBAC"
 
     def ready(self):
         load_roles_and_permissions()

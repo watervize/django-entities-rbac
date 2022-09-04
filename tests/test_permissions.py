@@ -1,8 +1,7 @@
-
 from django.test import TestCase
 
-from rolepermissions.permissions import PermissionsManager, register_object_checker
-from rolepermissions.exceptions import CheckerNotRegistered
+from entities_rbac.permissions import PermissionsManager, register_object_checker
+from entities_rbac.exceptions import CheckerNotRegistered
 
 
 class PermissionsManagerTests(TestCase):

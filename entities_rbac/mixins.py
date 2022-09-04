@@ -1,6 +1,4 @@
-from __future__ import unicode_literals
-
-from rolepermissions.decorators import has_permission_decorator, has_role_decorator
+from entities_rbac.decorators import has_permission_decorator, has_role_decorator
 
 
 class HasRoleMixin(object):

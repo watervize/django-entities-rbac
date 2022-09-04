@@ -1,4 +1,3 @@
-
 from django.views.generic import DetailView
 from django.utils.decorators import method_decorator
 from django.test import TestCase
@@ -10,8 +9,8 @@ from django.http.response import HttpResponse
 
 from model_mommy import mommy
 
-from rolepermissions.roles import AbstractUserRole
-from rolepermissions.decorators import has_role_decorator, has_permission_decorator
+from entities_rbac.roles import AbstractUserRole
+from entities_rbac.decorators import has_role_decorator, has_permission_decorator
 
 
 class DecRole1(AbstractUserRole):
@@ -172,7 +171,7 @@ class HasPermissionDecoratorTests(TestCase):
 
 
 @override_settings(
-    ROLEPERMISSIONS_REDIRECT_TO_LOGIN=True, LOGIN_URL='/login/',
+    ENTITIES_RBAC_REDIRECT_TO_LOGIN=True, LOGIN_URL='/login/',
     ROOT_URLCONF='tests.mock_urls')
 class RedirectToLoginTests(TestCase):
 
@@ -215,7 +214,7 @@ class RedirectToLoginTests(TestCase):
 
 
 @override_settings(
-    ROLEPERMISSIONS_REDIRECT_TO_LOGIN=False, LOGIN_URL='/login/',
+    ENTITIES_RBAC_REDIRECT_TO_LOGIN=False, LOGIN_URL='/login/',
     ROOT_URLCONF='tests.mock_urls')
 class NotRedirectToLoginTests(TestCase):
 

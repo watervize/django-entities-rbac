@@ -1,12 +1,11 @@
-
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.template import Context, Template
 
 from model_mommy import mommy
 
-from rolepermissions.roles import AbstractUserRole
-from rolepermissions.permissions import register_object_checker
+from entities_rbac.roles import AbstractUserRole
+from entities_rbac.permissions import register_object_checker
 
 
 class TemRole1(AbstractUserRole):

@@ -1,13 +1,11 @@
-from __future__ import unicode_literals
-
 import inspect
 
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 
-from rolepermissions.utils import camelToSnake, camel_or_snake_to_title
-from rolepermissions.exceptions import RoleDoesNotExist
+from entities_rbac.utils import camelToSnake, camel_or_snake_to_title
+from entities_rbac.exceptions import RoleDoesNotExist
 
 
 registered_roles = {}

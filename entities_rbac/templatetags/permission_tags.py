@@ -1,8 +1,6 @@
-from __future__ import unicode_literals
-
 from django import template
 
-from rolepermissions.checkers import has_role, has_permission, has_object_permission
+from entities_rbac.checkers import has_role, has_permission, has_object_permission
 
 
 register = template.Library()

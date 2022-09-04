@@ -1,4 +1,3 @@
-
 from django.views.generic import DetailView
 from django.test import TestCase
 from django.contrib.auth import get_user_model
@@ -9,8 +8,8 @@ from django.test.utils import override_settings
 
 from model_mommy import mommy
 
-from rolepermissions.roles import RolesManager, AbstractUserRole
-from rolepermissions.mixins import HasRoleMixin, HasPermissionsMixin
+from entities_rbac.roles import RolesManager, AbstractUserRole
+from entities_rbac.mixins import HasRoleMixin, HasPermissionsMixin
 
 
 class MixRole1(AbstractUserRole):
@@ -105,7 +104,7 @@ class HasRoleDecoratorTests(TestCase):
         self.assertEquals(response.status_code, 200)
 
     @override_settings(
-        ROLEPERMISSIONS_REDIRECT_TO_LOGIN=True, LOGIN_URL='/login/',
+        ENTITIES_RBAC_REDIRECT_TO_LOGIN=True, LOGIN_URL='/login/',
         ROOT_URLCONF='tests.mock_urls')
     def test_overhidden_redirect_to_login(self):
         request = self.request
@@ -169,7 +168,7 @@ class HasPermissionDecoratorTests(TestCase):
             HasPermissionDetailView.as_view()(request)
 
     @override_settings(
-        ROLEPERMISSIONS_REDIRECT_TO_LOGIN=True, LOGIN_URL='/login/',
+        ENTITIES_RBAC_REDIRECT_TO_LOGIN=True, LOGIN_URL='/login/',
         ROOT_URLCONF='tests.mock_urls')
     def test_overhidden_redirect_to_login(self):
         request = self.request

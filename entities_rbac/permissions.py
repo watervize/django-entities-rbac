@@ -1,10 +1,8 @@
-from __future__ import unicode_literals
-
-from rolepermissions.exceptions import (
-    RolePermissionScopeException,
+from entities_rbac.exceptions import (
+    EntitiesRBACScopeException,
     CheckerNotRegistered,
 )
-from rolepermissions.roles import get_user_roles, get_or_create_permission
+from entities_rbac.roles import get_user_roles, get_or_create_permission
 
 
 class PermissionsManager(object):
@@ -86,7 +84,7 @@ def grant_permission(user, permission_name):
 
     Permissions are only granted if they are in the scope any of the
     user's roles. If the permission is out of scope,
-    a RolePermissionScopeException is raised.
+    a EntitiesRBACScopeException is raised.
     """
     roles = get_user_roles(user)
 
@@ -96,7 +94,7 @@ def grant_permission(user, permission_name):
             user.user_permissions.add(permission)
             return
 
-    raise RolePermissionScopeException(
+    raise EntitiesRBACScopeException(
         "This permission isn't in the scope of " "any of this user's roles."
     )
 
@@ -106,7 +104,7 @@ def revoke_permission(user, permission_name):
     Revoke a specified permission from a user.
 
     Permissions are only revoked if they are in the scope any of the user's
-    roles. If the permission is out of scope, a RolePermissionScopeException
+    roles. If the permission is out of scope, a EntitiesRBACScopeException
     is raised.
     """
     roles = get_user_roles(user)
@@ -117,6 +115,6 @@ def revoke_permission(user, permission_name):
             user.user_permissions.remove(permission)
             return
 
-    raise RolePermissionScopeException(
+    raise EntitiesRBACScopeException(
         "This permission isn't in the scope of " "any of this user's roles."
     )

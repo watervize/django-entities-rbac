@@ -1,12 +1,11 @@
-
 from django.test import TestCase, override_settings
 from django.contrib.auth import get_user_model
 
 from model_mommy import mommy
 
-from rolepermissions.roles import AbstractUserRole
-from rolepermissions.checkers import has_role, has_permission, has_object_permission
-from rolepermissions.permissions import register_object_checker
+from entities_rbac.roles import AbstractUserRole
+from entities_rbac.checkers import has_role, has_permission, has_object_permission
+from entities_rbac.permissions import register_object_checker
 
 
 class VerRole1(AbstractUserRole):
@@ -78,7 +77,7 @@ class HasRoleTests(TestCase):
         self.assertTrue(has_role(user, VerRole1))
         self.assertTrue(has_role(user, VerRole2))
 
-    @override_settings(ROLEPERMISSIONS_SUPERUSER_SUPERPOWERS=False)
+    @override_settings(ENTITIES_RBAC_SUPERUSER_SUPERPOWERS=False)
     def test_superuser_without_superpowers(self):
         user = self.user
         user.is_superuser = True
@@ -139,7 +138,7 @@ class HasPermissionTests(TestCase):
         self.assertTrue(has_permission(user, 'permission1'))
         self.assertTrue(has_permission(user, 'permission5'))
 
-    @override_settings(ROLEPERMISSIONS_SUPERUSER_SUPERPOWERS=False)
+    @override_settings(ENTITIES_RBAC_SUPERUSER_SUPERPOWERS=False)
     def test_superuser_without_superpowers(self):
         user = self.user
         user.is_superuser = True
@@ -181,7 +180,7 @@ class HasObjectPermissionTests(TestCase):
         self.assertTrue(has_object_permission('obj_checker', user, True))
         self.assertTrue(has_object_permission('obj_checker', user, False))
 
-    @override_settings(ROLEPERMISSIONS_SUPERUSER_SUPERPOWERS=False)
+    @override_settings(ENTITIES_RBAC_SUPERUSER_SUPERPOWERS=False)
     def test_superuser_without_superpowers(self):
         user = self.user
         user.is_superuser = True

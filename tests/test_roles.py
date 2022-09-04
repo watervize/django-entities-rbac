@@ -1,11 +1,10 @@
-
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 
 from model_mommy import mommy
 
-from rolepermissions.roles import RolesManager, AbstractUserRole, get_or_create_permission
+from entities_rbac.roles import RolesManager, AbstractUserRole, get_or_create_permission
 
 
 class RolRole1(AbstractUserRole):

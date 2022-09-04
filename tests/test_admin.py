@@ -9,8 +9,8 @@ from django.contrib.auth.models import Group, Permission
 
 from model_mommy import mommy
 
-from rolepermissions.roles import AbstractUserRole, get_user_roles
-from rolepermissions.admin import RolePermissionsUserAdminMixin
+from entities_rbac.roles import AbstractUserRole, get_user_roles
+from entities_rbac.admin import EntitiesRBACUserAdminMixin
 
 
 class AdminRole1(AbstractUserRole):
@@ -26,7 +26,7 @@ class UserAdminMixinTest(TestCase):
         def save_related(self, request, form, formsets, change):
             pass
 
-    class CustomUserAdminMock(RolePermissionsUserAdminMixin, UserAdminMock):
+    class CustomUserAdminMock(EntitiesRBACUserAdminMixin, UserAdminMock):
         pass
 
     FormMock = namedtuple('FormMock', ['instance', ])

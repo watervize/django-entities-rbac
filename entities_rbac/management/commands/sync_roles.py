@@ -1,14 +1,14 @@
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
-from rolepermissions import roles
+from entities_rbac import roles
 
 
 class Command(BaseCommand):
-    ROLEPERMISSIONS_MODULE = getattr(settings, "ROLEPERMISSIONS_MODULE", "roles.py")
+    ENTITIES_RBAC_MODULE = getattr(settings, "ENTITIES_RBAC_MODULE", "roles.py")
     help = (
         "Synchronize auth Groups and Permissions with UserRoles defined in %s."
-        % ROLEPERMISSIONS_MODULE
+        % ENTITIES_RBAC_MODULE
     )
     version = "1.0.0"
 
@@ -46,7 +46,7 @@ class Command(BaseCommand):
             else:
                 role.get_default_true_permissions()
 
-        if options.get("reset_user_permissions", False):  # dj1.7 compat
+        if options.get("reset_user_permissions", False):
             # Push any permission changes made to roles and remove any unregistered roles from all auth.Users
             self.stdout.write(
                 "Resetting permissions for ALL Users to defaults defined by roles."
