@@ -7,13 +7,13 @@ import os
 import sys
 
 
-package = 'rolepermissions'
+package = 'entities_rbac'
 
 requirements = [
-    'Django>=1.5',
+    'Django>=3.2',
 ]
 test_requirements = [
-    'model-mommy==1.3.1',
+    'model-mommy==1.3.2',
     'mock'
 ]
 
@@ -61,24 +61,25 @@ if sys.argv[-1] == 'publish':
 
 
 setup(
-    name='django-role-permissions',
+    name='django-entities-rbac',
     version=get_version(package),
-    url='http://github.com/vintasoftware/django-role-permissions',
+    url='http://github.com/watervize/django-entities-rbac',
     license='MIT',
-    description='A django app for role based permissions.',
+    description='A django app for role based permissions with django-entities',
     author='Filipe Ximenes',
     author_email='filipeximenes@gmail.com',
     packages=get_packages(package),
     package_data=get_package_data(package),
     install_requires=requirements,
     classifiers=[
-        'Development Status :: 5 - Production/Stable',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
     ],
 )
