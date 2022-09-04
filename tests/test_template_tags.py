@@ -10,34 +10,34 @@ from entities_rbac.permissions import register_object_checker
 
 class TemRole1(AbstractUserRole):
     available_permissions = {
-        'permission1': True,
-        'permission2': True,
+        "permission1": True,
+        "permission2": True,
     }
+
 
 class TemRole2(AbstractUserRole):
     available_permissions = {
-        'permission3': True,
-        'permission4': False,
+        "permission3": True,
+        "permission4": False,
     }
 
+
 class TemRole3(AbstractUserRole):
-    role_name = 'new_name'
+    role_name = "new_name"
     available_permissions = {
-        'permission5': False,
-        'permission6': False,
+        "permission5": False,
+        "permission6": False,
     }
 
 
 class BaseTagTestCase(TestCase):
-
     def tag_test(self, template, context, output):
-        t = Template('{% load permission_tags %}'+template)
+        t = Template("{% load permission_tags %}" + template)
         c = Context(context)
         self.assertEqual(t.render(c), output)
 
 
 class HasRoleTests(BaseTagTestCase):
-
     def setUp(self):
         self.user = mommy.make(get_user_model())
 
@@ -49,10 +49,10 @@ class HasRoleTests(BaseTagTestCase):
         template = '{% if user|has_role:"tem_role1" %}passed{% endif %}'
 
         context = {
-            'user': user,
+            "user": user,
         }
 
-        output = 'passed'
+        output = "passed"
 
         self.tag_test(template, context, output)
 
@@ -62,10 +62,10 @@ class HasRoleTests(BaseTagTestCase):
         template = '{% if user|has_role:"tem_role1,tem_role2" %}passed{% endif %}'
 
         context = {
-            'user': user,
+            "user": user,
         }
 
-        output = 'passed'
+        output = "passed"
 
         self.tag_test(template, context, output)
 
@@ -75,16 +75,15 @@ class HasRoleTests(BaseTagTestCase):
         template = '{% if user|has_role:"tem_role2,tem_role3" %}passed{% endif %}'
 
         context = {
-            'user': user,
+            "user": user,
         }
 
-        output = ''
+        output = ""
 
         self.tag_test(template, context, output)
 
 
 class CanFilterTests(BaseTagTestCase):
-
     def setUp(self):
         self.user = mommy.make(get_user_model())
 
@@ -93,34 +92,31 @@ class CanFilterTests(BaseTagTestCase):
     def test_can_see(self):
         user = self.user
 
-        template = (
-            "{% if user|can:'permission1' %}passed{% endif %}")
+        template = "{% if user|can:'permission1' %}passed{% endif %}"
 
         context = {
-            'user': user,
+            "user": user,
         }
 
-        output = 'passed'
+        output = "passed"
 
         self.tag_test(template, context, output)
 
     def test_can_not_see(self):
         user = self.user
 
-        template = (
-            "{% if user|can:'permission3' %}passed{% endif %}")
+        template = "{% if user|can:'permission3' %}passed{% endif %}"
 
         context = {
-            'user': user,
+            "user": user,
         }
 
-        output = ''
+        output = ""
 
         self.tag_test(template, context, output)
 
 
 class CanTagTests(BaseTagTestCase):
-
     def setUp(self):
         self.user = mommy.make(get_user_model())
 
@@ -135,13 +131,14 @@ class CanTagTests(BaseTagTestCase):
 
         template = (
             "{% can 'can_print_stuff' '' as can_print %}"
-            "{% if can_print %}passed{% endif %}")
+            "{% if can_print %}passed{% endif %}"
+        )
 
         context = {
-            'user': user,
+            "user": user,
         }
 
-        output = 'passed'
+        output = "passed"
 
         self.tag_test(template, context, output)
 
@@ -154,12 +151,13 @@ class CanTagTests(BaseTagTestCase):
 
         template = (
             "{% can 'can_print_stuff' '' as can_print %}"
-            "{% if can_print %}passed{% endif %}")
+            "{% if can_print %}passed{% endif %}"
+        )
 
         context = {
-            'user': user,
+            "user": user,
         }
 
-        output = ''
+        output = ""
 
         self.tag_test(template, context, output)

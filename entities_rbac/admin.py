@@ -4,9 +4,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
 from entities_rbac import roles
 
-ENTITIES_RBAC_REGISTER_ADMIN = getattr(
-    settings, "ENTITIES_RBAC_REGISTER_ADMIN", False
-)
+ENTITIES_RBAC_REGISTER_ADMIN = getattr(settings, "ENTITIES_RBAC_REGISTER_ADMIN", False)
 UserModel = auth.get_user_model()
 
 

@@ -4,6 +4,7 @@ import sys
 
 if __name__ == "__main__":
     import coverage
+
     coverage.process_startup()
     os.environ["COVERAGE_PROCESS_START"] = ".coveragerc"
 

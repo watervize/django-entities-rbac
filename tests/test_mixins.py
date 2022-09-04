@@ -14,20 +14,20 @@ from entities_rbac.mixins import HasRoleMixin, HasPermissionsMixin
 
 class MixRole1(AbstractUserRole):
     available_permissions = {
-        'permission1': True,
-        'permission2': True,
+        "permission1": True,
+        "permission2": True,
     }
 
 
 class MixRole2(AbstractUserRole):
     available_permissions = {
-        'permission3': True,
-        'permission4': False,
+        "permission3": True,
+        "permission4": False,
     }
 
 
 class HasRoleDetailView(HasRoleMixin, DetailView):
-    allowed_roles = ['mix_role1']
+    allowed_roles = ["mix_role1"]
 
     def get_object(self):
         return True
@@ -37,7 +37,7 @@ class HasRoleDetailView(HasRoleMixin, DetailView):
 
 
 class MultipleHasRoleDetailView(HasRoleMixin, DetailView):
-    allowed_roles = ['mix_role1', MixRole2]
+    allowed_roles = ["mix_role1", MixRole2]
 
     def get_object(self):
         return True
@@ -47,7 +47,7 @@ class MultipleHasRoleDetailView(HasRoleMixin, DetailView):
 
 
 class RoleOverhiddenRedirectView(HasRoleMixin, DetailView):
-    allowed_roles = ['mix_role1', MixRole2]
+    allowed_roles = ["mix_role1", MixRole2]
     redirect_to_login = False
 
     def get_object(self):
@@ -58,13 +58,12 @@ class RoleOverhiddenRedirectView(HasRoleMixin, DetailView):
 
 
 class HasRoleDecoratorTests(TestCase):
-
     def setUp(self):
         self.user = mommy.make(get_user_model())
 
         self.factory = RequestFactory()
 
-        self.request = self.factory.get('/')
+        self.request = self.factory.get("/")
         self.request.session = {}
         self.request.user = self.user
 
@@ -104,8 +103,10 @@ class HasRoleDecoratorTests(TestCase):
         self.assertEquals(response.status_code, 200)
 
     @override_settings(
-        ENTITIES_RBAC_REDIRECT_TO_LOGIN=True, LOGIN_URL='/login/',
-        ROOT_URLCONF='tests.mock_urls')
+        ENTITIES_RBAC_REDIRECT_TO_LOGIN=True,
+        LOGIN_URL="/login/",
+        ROOT_URLCONF="tests.mock_urls",
+    )
     def test_overhidden_redirect_to_login(self):
         request = self.request
 
@@ -117,7 +118,7 @@ class HasRoleDecoratorTests(TestCase):
 
 
 class HasPermissionDetailView(HasPermissionsMixin, DetailView):
-    required_permission = 'permission2'
+    required_permission = "permission2"
 
     def get_object(self):
         return True
@@ -127,7 +128,7 @@ class HasPermissionDetailView(HasPermissionsMixin, DetailView):
 
 
 class PermissionOverhiddenRedirectView(HasPermissionsMixin, DetailView):
-    required_permission = 'permission2'
+    required_permission = "permission2"
     redirect_to_login = False
 
     def get_object(self):
@@ -138,13 +139,12 @@ class PermissionOverhiddenRedirectView(HasPermissionsMixin, DetailView):
 
 
 class HasPermissionDecoratorTests(TestCase):
-
     def setUp(self):
         self.user = mommy.make(get_user_model())
 
         self.factory = RequestFactory()
 
-        self.request = self.factory.get('/')
+        self.request = self.factory.get("/")
         self.request.session = {}
         self.request.user = self.user
 
@@ -168,8 +168,10 @@ class HasPermissionDecoratorTests(TestCase):
             HasPermissionDetailView.as_view()(request)
 
     @override_settings(
-        ENTITIES_RBAC_REDIRECT_TO_LOGIN=True, LOGIN_URL='/login/',
-        ROOT_URLCONF='tests.mock_urls')
+        ENTITIES_RBAC_REDIRECT_TO_LOGIN=True,
+        LOGIN_URL="/login/",
+        ROOT_URLCONF="tests.mock_urls",
+    )
     def test_overhidden_redirect_to_login(self):
         request = self.request
 
